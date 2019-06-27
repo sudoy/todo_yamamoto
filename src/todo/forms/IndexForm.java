@@ -1,17 +1,15 @@
 package todo.forms;
 
 public class IndexForm {
-	int id;
-	String title;
-	String details;
-	String value;
-	String limitdate;
+	private int id;
+	private String title;
+	private String value;
+	private String limitdate;
 
 
-	public IndexForm(int id, String title, String details, String value, String limitdate) {
+	public IndexForm(int id, String title, String value, String limitdate) {
 		this.id = id;
 		this.title = title;
-		this.details = details;
 		this.value = value;
 		this.limitdate = limitdate;
 	}
@@ -26,12 +24,6 @@ public class IndexForm {
 	}
 	public void setTitle(String title) {
 		this.title = title;
-	}
-	public String getDetails() {
-		return details;
-	}
-	public void setDetails(String details) {
-		this.details = details;
 	}
 	public String getValue() {
 		return value;

@@ -29,7 +29,7 @@ public class IndexService {
 				String title = rs.getString("title");
 				String value = HTMLUtils.valueFormat(rs.getInt("value"));
 				String limitdate =  HTMLUtils.limitdateFormat(rs.getString("limitdate"));
-				pack.add(new IndexForm(id, title,"", value, limitdate));
+				pack.add(new IndexForm(id, title, value, limitdate));
 			}
 		}catch(Exception e){
 			throw new ServletException(e);
