@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>update</title>
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<link href="css/mystyle.css" rel="stylesheet">
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+	</head>
+	<body class="bgc-gray">
+		<nav class="navbar navbar-default bgc-white">
+			<div class="container">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#">Todoリスト</a>
+				</div>
+
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<!-- /.navbar-collapse -->
+			</div><!-- /.container-fluid -->
+		</nav>
+		<div class="container">
+			<div class="alert alert-success alert-dismissible" role="alert">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<strong> 成功しました！</strong><br>
+				<ul>
+					<li>No,27のTodoを更新しました。</li>
+				</ul>
+			</div>
+			<div class="alert alert-warning alert-dismissible" role="alert">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<strong> エラーが発生しました！</strong><br>
+				<ul>
+					<li>題名は必須入力です。</li>
+					<li>題名は100文字以内にしてください。</li>
+					<li>期限は「YYYY/MM/DD」形式で入力して下さい。</li>
+				</ul>
+			</div>
+		</div>
+		<div class="container btm-border">
+			<div class="btm-border">
+				<h1 class="formsize">登録フォーム</h1>
+			</div>
+		</div>
+		<div class="container">
+			<form class="form-horizontal">
+				<div class="form-group">
+					<label for="title" class="col-sm-2 textright textdown">題名</label>
+					<div class="col-sm-10">
+						<input type="data" class="form-control" id="title" value="テストテスト" placeholder="題名">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="details" class="col-sm-2  koumoku textright textdown">詳細</label>
+					<div class="col-sm-10">
+						<textarea class="form-control" rows="3" id="details" placeholder="詳細">SQLの確認テストの採点と報告書を作成する。</textarea>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-2 textright bold">重要度</div>
+					<div class="col-sm-10">
+						<label><input type="radio" name="radio" value="3" checked="checked"> ★★★</label><br>
+						<label><input type="radio" name="radio" value="2"> ★★</label><br>
+						<label><input type="radio" name="radio" value="1"> ★</label>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="money" class="col-sm-2 textright textdown">期限</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="date" placeholder="期限" value="2015/06/15">
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-2"></div>
+					<div class="col-sm-8">
+						<a href="index.html"><button type="button" class="btn btn-bgw">キャンセル</button></a>
+						<a href="index.html"><button type="button" class="btn btn-primary">更 新</button></a>
+					</div>
+					<div class="col-sm-2 textright">
+						<a href="index.html"><button type="button" class="btn btn-danger">削 除</button></a>
+					</div>
+				</div>
+			</form>
+		</div>
+		<!--/container-fluid-->
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		<!-- Include all compiled plugins (below), or include individual files as needed -->
+		<script src="js/bootstrap.min.js"></script>
+	</body>
+</html>
