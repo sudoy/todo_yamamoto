@@ -7,14 +7,13 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
+
+import todo.utils.DBUtils;
 @WebServlet("/index.html")
 public class IndexServlet extends HttpServlet {
 	@Override
@@ -29,10 +28,7 @@ public class IndexServlet extends HttpServlet {
 		List<String> limitdate = new ArrayList<>();
 		sql = "SELECT id,title,value,limitdate FROM mainlist ORDER BY id";
 		try{
-			Context initContext = new InitialContext();
-			Context envContext = (Context)initContext.lookup("java:/comp/env");
-			DataSource ds = (DataSource)envContext.lookup("jdbc/mysql");
-			con = ds.getConnection();
+			con = DBUtils.getConnection();
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
 			while(rs.next()){
@@ -44,11 +40,7 @@ public class IndexServlet extends HttpServlet {
 		}catch(Exception e){
 			throw new ServletException(e);
 		}finally{
-			try{
-				if(con!=null){con.close();}
-				if(ps!=null){ps.close();}
-				if(rs!=null){rs.close();}
-			}catch(Exception e){}
+			DBUtils.close(con, ps, rs);
 		}
 		req.setAttribute("id", id);
 		req.setAttribute("title", title);
