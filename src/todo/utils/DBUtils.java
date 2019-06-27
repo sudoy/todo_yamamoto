@@ -1,15 +1,17 @@
 package todo.utils;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
 public class DBUtils {
 	public static Connection getConnection() throws Exception {
-		Class.forName("com.mysql.jdbc.Driver");
-		String url="jdbc:mysql://localhost:3306/todolist_yamamoto?useUnicode=true&amp;characterEncoding=utf8";
-		String user = "root";
-		String password="";
-		return DriverManager.getConnection(url, user, password);
+		Context initContext = new InitialContext();
+		Context envContext = (Context)initContext.lookup("java:/comp/env");
+		DataSource ds = (DataSource)envContext.lookup("todolist_yamamoto");
+		return ds.getConnection();
 	}
 	public static void close(Connection con,PreparedStatement ps) {
 		try{
