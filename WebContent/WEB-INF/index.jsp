@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="todoHeader.jsp" />
 		<div class="container">
 			<table class="table">
@@ -8,30 +9,14 @@
 				<th class="col-sm-3">重要度</th>
 				<th class="col-sm-4">期限</th>
 			</tr>
+			<c:forEach var="idm" items="${id}" varStatus="i">
 			<tr>
-				<td class="tcenter">1</td>
-				<td class="tcenter"><a href="update.html">テストテスト</a></td>
-				<td class="tcenter">★★★</td>
-				<td class="tcenter">2015/06/20</td>
+				<td class="tcenter">${idm}</td>
+				<td class="tcenter"><a href="update.html">${title.get(i.index)}</a></td>
+				<td class="tcenter">${value.get(i.index)}</td>
+				<td class="tcenter">${limitdate.get(i.index)}</td>
 			</tr>
-			<tr>
-				<td class="tcenter">2</td>
-				<td class="tcenter"><a href="update.html">テストテスト</a></td>
-				<td class="tcenter">★</td>
-				<td class="tcenter">2015/06/22</td>
-			</tr>
-			<tr>
-				<td class="tcenter">3</td>
-				<td class="tcenter"><a href="update.html">テストテスト</a></td>
-				<td class="tcenter">★★★</td>
-				<td class="tcenter">2015/06/20</td>
-			</tr>
-			<tr>
-				<td class="tcenter">4</td>
-				<td class="tcenter"><a href="update.html">テストテスト</a></td>
-				<td class="tcenter">★★</td>
-				<td class="tcenter"></td>
-			</tr>
+			</c:forEach>
 			</table>
 			<div><a class="btn btn-primary" href="entry.html" role="button">追加</a></div>
 		</div>
