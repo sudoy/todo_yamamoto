@@ -35,10 +35,4 @@
 			</table>
 			<div><a class="btn btn-primary" href="entry.html" role="button">追加</a></div>
 		</div>
-		<!--/container-fluid-->
-		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-		<!-- Include all compiled plugins (below), or include individual files as needed -->
-		<script src="js/bootstrap.min.js"></script>
-	</body>
-</html>
+<jsp:include page="todoFooter.jsp" />
