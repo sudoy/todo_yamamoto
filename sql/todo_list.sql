@@ -1,4 +1,4 @@
-create table todo_yamamoto(
+create table todo_list(
 	id serial,
 	title varchar(100) not null,
 	details text,
@@ -6,7 +6,7 @@ create table todo_yamamoto(
 	limitdate date
 );
 
-insert into todo_yamamoto(title,details,value,limitdate) 
+insert into todo_list(title,details,value,limitdate) 
 values 
 ('ƒeƒXƒg1',null,'1','2019/07/01'),
 ('•¶š”100‚Ü‚Å','Ú×—“','3','2019/06/27'),
