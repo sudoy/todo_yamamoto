@@ -9,12 +9,12 @@
 				<th class="col-sm-3">重要度</th>
 				<th class="col-sm-4">期限</th>
 			</tr>
-			<c:forEach var="idm" items="${id}" varStatus="i">
+			<c:forEach var="p" items="${pack}" varStatus="i">
 			<tr>
-				<td class="tcenter">${idm}</td>
-				<td class="tcenter"><a href="update.html">${title.get(i.index)}</a></td>
-				<td class="tcenter">${value.get(i.index)}</td>
-				<td class="tcenter">${limitdate.get(i.index)}</td>
+				<td class="tcenter">${p.id}</td>
+				<td class="tcenter"><a href="update.html">${p.title}</a></td>
+				<td class="tcenter">${p.value}</td>
+				<td class="tcenter">${p.limitdate}</td>
 			</tr>
 			</c:forEach>
 			</table>
