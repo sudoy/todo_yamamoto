@@ -1,5 +1,7 @@
 package todo.utils;
 
+import todo.forms.ErrorForm;
+
 public class HTMLUtils {
 	public static String valueFormat(int value) {
 		String star = "";
@@ -13,7 +15,12 @@ public class HTMLUtils {
 		return limitdate.replace("-", "/");
 	}
 
-	public static String checkedRadio(String value,int num) {
+	public static String checkedRadio(ErrorForm Epack,int num) {
+		if(Epack == null) {
+			if(num == 3){return "checked";}
+			return "";
+		}
+		String value = Epack.getValue();
 		if(value!=null&&1<=Integer.valueOf(value)&&Integer.valueOf(value)<=3) {
 			if(Integer.valueOf(value)==num) {
 				return "checked";

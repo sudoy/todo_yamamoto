@@ -1,6 +1,6 @@
-<%@page import="todo.utils.HTMLUtils"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="todo.utils.HTMLUtils" %>
 <jsp:include page="todoHeader.jsp" />
 		<div class="container">
 			<div class="btm-border">
@@ -24,14 +24,9 @@
 				<div class="form-group">
 					<div class="col-sm-2 textright bold">重要度</div>
 					<div class="col-sm-10">
-					<c:if test="${empty(Epack)}">
-						<label><input type="radio" name="value" value="3" checked> ★★★</label><br>
-					</c:if>
-					<c:if test="${!empty(Epack)}">
-						<label><input type="radio" name="value" value="3" ${Epack.value[2]}> ★★★</label><br>
-					</c:if>
-						<label><input type="radio" name="value" value="2" ${Epack.value[1]}> ★★</label><br>
-						<label><input type="radio" name="value" value="1" ${Epack.value[0]}> ★</label>
+						<label><input type="radio" name="value" value="3" ${HTMLUtils.checkedRadio(Epack,3)}> ★★★</label><br>
+						<label><input type="radio" name="value" value="2" ${HTMLUtils.checkedRadio(Epack,2)}> ★★</label><br>
+						<label><input type="radio" name="value" value="1" ${HTMLUtils.checkedRadio(Epack,1)}> ★</label>
 					</div>
 				</div>
 				<div class="form-group">

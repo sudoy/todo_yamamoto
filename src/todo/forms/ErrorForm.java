@@ -5,20 +5,13 @@ import java.util.List;
 public class ErrorForm {
 	private String title;
 	private String details;
-	private String[] value = new String[3];
+	private String value;
 	private String limitdate;
 	private List<String> err;
 	public ErrorForm(String title, String details, String value, String limitdate, List<String> err) {
 		this.title = title;
 		this.details = details;
-		for(int i = 0;i<this.value.length;i++) {
-			if(String.valueOf(i+1).equals(value)) {
-				this.value[i]="checked";
-				break;
-			}else if(i==2){
-				this.value[i]="checked";
-			}
-		}
+		this.value = value;
 		this.limitdate = limitdate;
 		this.err = err;
 	}
@@ -34,10 +27,10 @@ public class ErrorForm {
 	public void setDetails(String details) {
 		this.details = details;
 	}
-	public String[] getValue() {
+	public String getValue() {
 		return value;
 	}
-	public void setValue(String[] value) {
+	public void setValue(String value) {
 		this.value = value;
 	}
 	public String getLimitdate() {
