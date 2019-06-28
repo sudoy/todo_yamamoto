@@ -31,7 +31,7 @@ public class HTMLUtils {
 		}
 		return "";
 	}
-	public static String checkedRadio(UpdateForm pack,int num) {
+	public static String selectRadio(UpdateForm pack,int num) {
 		int value = pack.getValue();
 		if(Integer.valueOf(value)==num) {
 			return "checked";

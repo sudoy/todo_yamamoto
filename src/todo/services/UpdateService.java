@@ -17,7 +17,7 @@ public class UpdateService {
 		String sql = null;
 		ResultSet rs = null;
 		UpdateForm pack = null;
-		sql = "SELECT title,details,value,limitdate FROM mainlist WHERE " + id;
+		sql = "SELECT title,details,value,limitdate FROM mainlist WHERE id = " + id;
 		try{
 			con = DBUtils.getConnection();
 			ps = con.prepareStatement(sql);

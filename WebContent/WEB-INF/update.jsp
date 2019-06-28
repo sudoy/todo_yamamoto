@@ -24,9 +24,9 @@
 				<div class="form-group">
 					<div class="col-sm-2 textright bold">重要度</div>
 					<div class="col-sm-10">
-						<label><input type="radio" name="value" value="3" ${HTMLUtils.checkedRadio(pack,3)}> ★★★</label><br>
-						<label><input type="radio" name="value" value="2" ${HTMLUtils.checkedRadio(pack,2)}> ★★</label><br>
-						<label><input type="radio" name="value" value="1" ${HTMLUtils.checkedRadio(pack,1)}> ★</label>
+						<label><input type="radio" name="value" value="3" ${HTMLUtils.selectRadio(pack,3)}> ★★★</label><br>
+						<label><input type="radio" name="value" value="2" ${HTMLUtils.selectRadio(pack,2)}> ★★</label><br>
+						<label><input type="radio" name="value" value="1" ${HTMLUtils.selectRadio(pack,1)}> ★</label>
 					</div>
 				</div>
 				<div class="form-group">
