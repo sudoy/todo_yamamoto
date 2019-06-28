@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="todoHeader.jsp" />
 		<div class="container">
 			<div class="btm-border">
@@ -10,27 +11,32 @@
 				<div class="form-group">
 					<label for="title" class="col-sm-2 textright textdown">題名</label>
 					<div class="col-sm-10">
-						<input type="text" name="title" class="form-control" id="title" value="" placeholder="題名">
+						<input type="text" name="title" class="form-control" id="title" value="${Epack.title}" placeholder="題名">
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="details" class="col-sm-2 textright textdown">詳細</label>
 					<div class="col-sm-10">
-						<textarea class="form-control" rows="3" name="details" id="details" placeholder="詳細"></textarea>
+						<textarea class="form-control" rows="3" name="details" id="details" placeholder="詳細">${Epack.details}</textarea>
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="col-sm-2 textright bold">重要度</div>
 					<div class="col-sm-10">
-						<label><input type="radio" name="value" value="3" checked="checked"> ★★★</label><br>
-						<label><input type="radio" name="value" value="2"> ★★</label><br>
-						<label><input type="radio" name="value" value="1"> ★</label>
+						<c:choose>
+							<c:when test="${Epack.value == 1}"><c:set var="c1" value="checked" /></c:when>
+							<c:when test="${Epack.value == 2}"><c:set var="c2" value="checked" /></c:when>
+							<c:otherwise><c:set var="c3" value="checked" /></c:otherwise>
+						</c:choose>
+						<label><input type="radio" name="value" value="3" ${c3}> ★★★</label><br>
+						<label><input type="radio" name="value" value="2" ${c2}> ★★</label><br>
+						<label><input type="radio" name="value" value="1" ${c1}> ★</label>
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="date" class="col-sm-2  koumoku textright textdown">期限</label>
 					<div class="col-sm-10">
-						<input type="text" name="limitdate" class="form-control" id="date" placeholder="期限">
+						<input type="text" name="limitdate" class="form-control" id="date" value="${Epack.limitdate}" placeholder="期限">
 					</div>
 				</div>
 				<div class="form-group">

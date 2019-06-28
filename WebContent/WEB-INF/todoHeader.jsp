@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ja">
 	<head>
@@ -39,13 +40,16 @@
 					<li>No,27のTodoを更新しました。</li>
 				</ul>
 			</div>
+<c:if test="${!empty(Epack)}">
 			<div class="alert alert-warning alert-dismissible" role="alert">
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<strong> エラーが発生しました！</strong><br>
 				<ul>
-					<li>題名は必須入力です。</li>
-					<li>題名は100文字以内にしてください。</li>
-					<li>期限は「YYYY/MM/DD」形式で入力して下さい。</li>
+				<c:forEach var="err" items="${Epack.err}">
+					<li>${err}</li>
+				</c:forEach>
 				</ul>
 			</div>
+</c:if>
+
 		</div>

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import todo.forms.EntryForm;
+import todo.forms.ErrorForm;
 import todo.services.EntryService;
 @WebServlet("/entry.html")
 public class EntryServlet extends HttpServlet {
@@ -32,6 +33,7 @@ public class EntryServlet extends HttpServlet {
 		List<String> err = validate(title, Svalue, limitdate);
 		// errに文字が入っているか。エラーの判定
 		if(err.size()>0) {
+			req.setAttribute("Epack", new ErrorForm(title, details, req.getParameter("value"), req.getParameter("limitdate"), err));
 			getServletContext().getRequestDispatcher("/WEB-INF/entry.jsp").forward(req, resp);
 			return;
 		}
@@ -65,14 +67,12 @@ public class EntryServlet extends HttpServlet {
 		if(limitdate != null) {
 			try {
         	if(!limitdate.matches("[0-9]{4}/[0-9]{2}/[0-9]{2}")) {
-        		System.out.println("d");
         		throw new Exception();
         	}
         	DateFormat format=new SimpleDateFormat("yyyy/MM/dd");
         	format.setLenient(false);
             format.parse(limitdate);
 			} catch (Exception e) {
-				System.out.println("k");
 				err.add("期限は「YYYY/MM/DD」形式で入力して下さい。");
 			}
 		}
