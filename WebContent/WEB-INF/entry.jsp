@@ -6,37 +6,37 @@
 			</div>
 		</div>
 		<div class="container">
-			<form class="form-horizontal" action="index.html">
+			<form class="form-horizontal" method="POST" action="entry.html">
 				<div class="form-group">
 					<label for="title" class="col-sm-2 textright textdown">題名</label>
 					<div class="col-sm-10">
-						<input type="text" class="form-control" id="title" value="" placeholder="題名">
+						<input type="text" name="title" class="form-control" id="title" value="" placeholder="題名">
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="details" class="col-sm-2 textright textdown">詳細</label>
 					<div class="col-sm-10">
-						<textarea class="form-control" rows="3" id="details" placeholder="詳細"></textarea>
+						<textarea class="form-control" rows="3" name="details" id="details" placeholder="詳細"></textarea>
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="col-sm-2 textright bold">重要度</div>
 					<div class="col-sm-10">
-						<label><input type="radio" name="radio" value="3" checked="checked"> ★★★</label><br>
-						<label><input type="radio" name="radio" value="2"> ★★</label><br>
-						<label><input type="radio" name="radio" value="1"> ★</label>
+						<label><input type="radio" name="value" value="3" checked="checked"> ★★★</label><br>
+						<label><input type="radio" name="value" value="2"> ★★</label><br>
+						<label><input type="radio" name="value" value="1"> ★</label>
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="date" class="col-sm-2  koumoku textright textdown">期限</label>
 					<div class="col-sm-10">
-						<input type="text" class="form-control" id="date" placeholder="期限">
+						<input type="text" name="limitdate" class="form-control" id="date" placeholder="期限">
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="col-sm-2"></div>
 					<div class="col-sm-8">
-						<button type="submit" class="btn btn-default">キャンセル</button>
+						<a class="btn btn-default" href="index.html" role="button">追加</a>
 						<button type="submit" class="btn btn-primary">追 加</button>
 					</div>
 				</div>
