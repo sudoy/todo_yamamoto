@@ -9,6 +9,7 @@ public class HTMLUtils {
 		return star;
 	}
 	public static String limitdateFormat(String limitdate) {
+		if(limitdate==null) {return "";}
 		return limitdate.replace("-", "/");
 	}
 }

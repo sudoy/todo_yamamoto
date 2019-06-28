@@ -26,8 +26,11 @@ public class EntryServlet extends HttpServlet {
 		String details = req.getParameter("details");
 		int value = Integer.parseInt(req.getParameter("value"));
 		String limitdate = req.getParameter("limitdate");
-		List<String> err = validate(title, value, limitdate);
+		if(limitdate.equals("")) {
+			limitdate = null;
+		}
 
+		List<String> err = validate(title, value, limitdate);
 		// errに文字が入っているか。エラーの判定
 		if(err.size()>0) {
 			getServletContext().getRequestDispatcher("/WEB-INF/entry.jsp").forward(req, resp);
@@ -51,7 +54,7 @@ public class EntryServlet extends HttpServlet {
 	private List<String> validate(String title,int value,String limitdate) {
 		List<String> err = new ArrayList<>();
         // Date型変換
-		if(title=="") {
+		if(title.equals("")) {
         	err.add("題名は必須入力です。");
         }else if(100<title.length()) {
         	err.add("題名は100文字以内にしてください。");
@@ -59,7 +62,7 @@ public class EntryServlet extends HttpServlet {
 		if(value<1||3<value) {
 			err.add("重要度の入力エラーが発生しました。");
 		}
-		if(limitdate != "") {
+		if(limitdate != null) {
 			try {
         	if(!limitdate.matches("[0-9]{4}/([0-9]|[0-9]{2})/([0-9]|[0-9]{2})")) {
         		System.out.println("d");
