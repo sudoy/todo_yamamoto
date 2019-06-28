@@ -22,7 +22,7 @@ public class HTMLUtils {
 			return "";
 		}
 		String value = pack.getValue();
-		if(value!=null&&1<=Integer.valueOf(value)&&Integer.valueOf(value)<=3) {
+		if(1<=Integer.valueOf(value)&&Integer.valueOf(value)<=3) {
 			if(Integer.valueOf(value)==num) {
 				return "checked";
 			}
@@ -32,8 +32,16 @@ public class HTMLUtils {
 		return "";
 	}
 	public static String selectRadio(UpdateForm pack,int num) {
-		int value = pack.getValue();
-		if(Integer.valueOf(value)==num) {
+		if(pack == null) {
+			if(num == 3){return "checked";}
+			return "";
+		}
+		String value = String.valueOf(pack.getValue());
+		if(1<=Integer.valueOf(value)&&Integer.valueOf(value)<=3) {
+			if(Integer.valueOf(value)==num) {
+				return "checked";
+			}
+		}else if(num == 3){
 			return "checked";
 		}
 		return "";

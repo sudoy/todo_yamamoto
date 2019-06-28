@@ -1,15 +1,24 @@
 package todo.forms;
 
 public class UpdateForm {
+	private String id;
 	private String title;
 	private String details;
 	private int value;
 	private String limitdate;
-	public UpdateForm( String title, String details, int value, String limitdate) {
+
+	public UpdateForm(String id, String title, String details, int value, String limitdate) {
+		this.id = id;
 		this.title = title;
 		this.details = details;
 		this.value = value;
 		this.limitdate = limitdate;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
 	}
 	public String getTitle() {
 		return title;

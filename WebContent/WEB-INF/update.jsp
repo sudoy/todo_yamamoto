@@ -8,7 +8,8 @@
 			</div>
 		</div>
 		<div class="container">
-			<form class="form-horizontal" method="POST" action="entry.html">
+			<form class="form-horizontal" method="POST" action="update.html">
+			<input type="hidden" name="id" value="${pack.id}">
 				<div class="form-group">
 					<label for="title" class="col-sm-2 textright textdown">題名</label>
 					<div class="col-sm-10">
@@ -39,7 +40,10 @@
 					<div class="col-sm-2"></div>
 					<div class="col-sm-8">
 						<a class="btn btn-default" href="index.html" role="button">キャンセル</a>
-						<button type="submit" class="btn btn-primary">追 加</button>
+						<button type="submit" class="btn btn-primary">更 新</button>
+					</div>
+					<div class="col-sm-2 textright">
+						<button type="submit" class="btn btn-danger">削 除</button>
 					</div>
 				</div>
 			</form>
