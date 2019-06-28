@@ -17,10 +17,11 @@ public class UpdateService {
 		String sql = null;
 		ResultSet rs = null;
 		UpdateForm pack = null;
-		sql = "SELECT title,details,value,limitdate FROM mainlist WHERE id = " + id;
+		sql = "SELECT title,details,value,limitdate FROM mainlist WHERE id = ?";
 		try{
 			con = DBUtils.getConnection();
 			ps = con.prepareStatement(sql);
+			ps.setString(1, id);
 			rs = ps.executeQuery();
 			while(rs.next()){
 				String title = rs.getString("title");
