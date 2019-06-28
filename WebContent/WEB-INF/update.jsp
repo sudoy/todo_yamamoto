@@ -43,7 +43,7 @@
 						<button type="submit" class="btn btn-primary">更 新</button>
 					</div>
 					<div class="col-sm-2 textright">
-						<button type="submit" class="btn btn-danger">削 除</button>
+						<a class="btn btn-danger" href="delete.html?id=${pack.id}" role="button">削 除</a>
 					</div>
 				</div>
 			</form>

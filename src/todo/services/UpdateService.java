@@ -46,7 +46,7 @@ public class UpdateService {
 		Connection con = null;
 		PreparedStatement ps = null;
 		String sql = null;
-		//DBに追加
+		//DB更新
 		try {
 			con = DBUtils.getConnection();
 			sql = "UPDATE mainlist SET title = ?,details = ?,value = ?,limitdate = ? WHERE id = ?";
@@ -58,9 +58,9 @@ public class UpdateService {
 			ps.setString(5, id);
 			ps.executeUpdate();
 		} catch (Exception e) {
-			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}finally{
+			//close処理
 			DBUtils.close(con, ps);
 		}
 	}

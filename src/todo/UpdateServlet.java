@@ -34,21 +34,21 @@ public class UpdateServlet extends HttpServlet {
 		}
 		List<String> err = validate(id,title, value, limitdate);
 		req.setAttribute("err", err);
+
 		// errに文字が入っているか。エラーの判定
 		if(err.size()>0) {
 			req.setAttribute("pack", new UpdateForm(id,title, details,Integer.valueOf(req.getParameter("value")), limitdate));
 			getServletContext().getRequestDispatcher("/WEB-INF/update.jsp").forward(req, resp);
 			return;
 		}
+		// SQL出力
 		UpdateService us = new UpdateService();
 		us.updateDB(new UpdateForm(id,title, details, Integer.valueOf(req.getParameter("value")), limitdate));
-		// SQL出力
 		resp.sendRedirect("index.html");
 	}
 
 	private List<String> validate(String id,String title,String value,String limitdate) {
 		List<String> err = new ArrayList<>();
-        // Date型変換
 		if(id.equals("")) {
 			err.add("idが存在しません。");
 		}
@@ -72,7 +72,6 @@ public class UpdateServlet extends HttpServlet {
 				err.add("期限は「YYYY/MM/DD」形式で入力して下さい。");
 			}
 		}
-
         return err;
 	}
 }
