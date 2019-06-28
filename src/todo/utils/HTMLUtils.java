@@ -12,4 +12,15 @@ public class HTMLUtils {
 		if(limitdate==null) {return "";}
 		return limitdate.replace("-", "/");
 	}
+
+	public static String checkedRadio(String value,int num) {
+		if(value!=null&&1<=Integer.valueOf(value)&&Integer.valueOf(value)<=3) {
+			if(Integer.valueOf(value)==num) {
+				return "checked";
+			}
+		}else if(num == 3){
+			return "checked";
+		}
+		return "";
+	}
 }
