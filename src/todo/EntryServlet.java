@@ -64,7 +64,7 @@ public class EntryServlet extends HttpServlet {
 		}
 		if(limitdate != null) {
 			try {
-        	if(!limitdate.matches("[0-9]{4}/([0-9]|[0-9]{2})/([0-9]|[0-9]{2})")) {
+        	if(!limitdate.matches("[0-9]{4}/[0-9]{2}/[0-9]{2}")) {
         		System.out.println("d");
         		throw new Exception();
         	}
