@@ -40,13 +40,13 @@
 					<li>No,27のTodoを更新しました。</li>
 				</ul>
 			</div>
-<c:if test="${!empty(Epack)}">
+<c:if test="${!empty(err)}">
 			<div class="alert alert-warning alert-dismissible" role="alert">
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<strong> エラーが発生しました！</strong><br>
 				<ul>
-				<c:forEach var="err" items="${Epack.err}">
-					<li>${err}</li>
+				<c:forEach var="errlist" items="${err}">
+					<li>${errlist}</li>
 				</c:forEach>
 				</ul>
 			</div>

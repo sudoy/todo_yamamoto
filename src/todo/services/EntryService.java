@@ -12,7 +12,7 @@ public class EntryService {
 	public void setDB(EntryForm get) throws ServletException {
 		String title = get.getTitle();
 		String details = get.getDetails();
-		int value = get.getValue();
+		String value = get.getValue();
 		String limitdate = get.getLimitdate();
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -25,7 +25,7 @@ public class EntryService {
 			ps = con.prepareStatement(sql);
 			ps.setString(1, title);
 			ps.setString(2, details);
-			ps.setInt(3, value);
+			ps.setString(3, value);
 			ps.setString(4, limitdate);
 			ps.executeUpdate();
 		}catch(Exception e){

@@ -1,11 +1,11 @@
 package todo.forms;
 
-public class EntryForm {
+public class UpdateForm {
 	private String title;
 	private String details;
-	private String value;
+	private int value;
 	private String limitdate;
-	public EntryForm( String title, String details, String value, String limitdate) {
+	public UpdateForm( String title, String details, int value, String limitdate) {
 		this.title = title;
 		this.details = details;
 		this.value = value;
@@ -23,10 +23,10 @@ public class EntryForm {
 	public void setDetails(String details) {
 		this.details = details;
 	}
-	public String getValue() {
+	public int getValue() {
 		return value;
 	}
-	public void setValue(String value) {
+	public void setValue(int value) {
 		this.value = value;
 	}
 	public String getLimitdate() {

@@ -12,27 +12,27 @@
 				<div class="form-group">
 					<label for="title" class="col-sm-2 textright textdown">題名</label>
 					<div class="col-sm-10">
-						<input type="text" name="title" class="form-control" id="title" value="${Epack.title}" placeholder="題名">
+						<input type="text" name="title" class="form-control" id="title" value="${pack.title}" placeholder="題名">
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="details" class="col-sm-2 textright textdown">詳細</label>
 					<div class="col-sm-10">
-						<textarea class="form-control" rows="3" name="details" id="details" placeholder="詳細">${Epack.details}</textarea>
+						<textarea class="form-control" rows="3" name="details" id="details" placeholder="詳細">${pack.details}</textarea>
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="col-sm-2 textright bold">重要度</div>
 					<div class="col-sm-10">
-						<label><input type="radio" name="value" value="3" ${HTMLUtils.checkedRadio(Epack,3)}> ★★★</label><br>
-						<label><input type="radio" name="value" value="2" ${HTMLUtils.checkedRadio(Epack,2)}> ★★</label><br>
-						<label><input type="radio" name="value" value="1" ${HTMLUtils.checkedRadio(Epack,1)}> ★</label>
+						<label><input type="radio" name="value" value="3" ${HTMLUtils.checkedRadio(pack,3)}> ★★★</label><br>
+						<label><input type="radio" name="value" value="2" ${HTMLUtils.checkedRadio(pack,2)}> ★★</label><br>
+						<label><input type="radio" name="value" value="1" ${HTMLUtils.checkedRadio(pack,1)}> ★</label>
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="date" class="col-sm-2  koumoku textright textdown">期限</label>
 					<div class="col-sm-10">
-						<input type="text" name="limitdate" class="form-control" id="date" value="${Epack.limitdate}" placeholder="期限">
+						<input type="text" name="limitdate" class="form-control" id="date" value="${pack.limitdate}" placeholder="期限">
 					</div>
 				</div>
 				<div class="form-group">

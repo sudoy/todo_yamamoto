@@ -12,7 +12,7 @@
 			<c:forEach var="p" items="${pack}" varStatus="i">
 			<tr>
 				<td class="tcenter">${p.id}</td>
-				<td class="tcenter"><a href="update.html">${p.title}</a></td>
+				<td class="tcenter"><a href="update.html?id=${p.id}">${p.title}</a></td>
 				<td class="tcenter">${p.value}</td>
 				<td class="tcenter">${p.limitdate}</td>
 			</tr>

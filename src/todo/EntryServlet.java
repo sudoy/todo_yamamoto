@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import todo.forms.EntryForm;
-import todo.forms.ErrorForm;
 import todo.services.EntryService;
 @WebServlet("/entry.html")
 public class EntryServlet extends HttpServlet {
@@ -25,20 +24,19 @@ public class EntryServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String title = req.getParameter("title");
 		String details = req.getParameter("details");
-		String Svalue = req.getParameter("value");
+		String value = req.getParameter("value");
 		String limitdate = req.getParameter("limitdate");
 		if(limitdate.equals("")) {
 			limitdate = null;
 		}
-		List<String> err = validate(title, Svalue, limitdate);
+		List<String> err = validate(title, value, limitdate);
+		req.setAttribute("err", err);
 		// errに文字が入っているか。エラーの判定
 		if(err.size()>0) {
-			req.setAttribute("Epack", new ErrorForm(title, details, req.getParameter("value"), req.getParameter("limitdate"), err));
+			req.setAttribute("pack", new EntryForm(title, details, req.getParameter("value"), req.getParameter("limitdate")));
 			getServletContext().getRequestDispatcher("/WEB-INF/entry.jsp").forward(req, resp);
 			return;
 		}
-		int value = Integer.parseInt(Svalue);
-
 		EntryForm get = new EntryForm(title, details, value, limitdate);
 		EntryService es = new EntryService();
 		es.setDB(get); // SQL出力
