@@ -17,8 +17,10 @@ public class EntryService {
 		Connection con = null;
 		PreparedStatement ps = null;
 		String sql = null;
+		//DBに追加
 		try{
 			con = DBUtils.getConnection();
+			// select文
 			sql = "INSERT INTO mainlist (title,details,value,limitdate) VALUES (?,?,?,?)";
 			ps = con.prepareStatement(sql);
 			ps.setString(1, title);

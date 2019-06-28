@@ -36,7 +36,7 @@
 				<div class="form-group">
 					<div class="col-sm-2"></div>
 					<div class="col-sm-8">
-						<a class="btn btn-default" href="index.html" role="button">追加</a>
+						<a class="btn btn-default" href="index.html" role="button">キャンセル</a>
 						<button type="submit" class="btn btn-primary">追 加</button>
 					</div>
 				</div>
