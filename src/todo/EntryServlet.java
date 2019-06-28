@@ -24,18 +24,18 @@ public class EntryServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String title = req.getParameter("title");
 		String details = req.getParameter("details");
-		int value = Integer.parseInt(req.getParameter("value"));
+		String Svalue = req.getParameter("value");
 		String limitdate = req.getParameter("limitdate");
 		if(limitdate.equals("")) {
 			limitdate = null;
 		}
-
-		List<String> err = validate(title, value, limitdate);
+		List<String> err = validate(title, Svalue, limitdate);
 		// errに文字が入っているか。エラーの判定
 		if(err.size()>0) {
 			getServletContext().getRequestDispatcher("/WEB-INF/entry.jsp").forward(req, resp);
 			return;
 		}
+		int value = Integer.parseInt(Svalue);
 
 		EntryForm get = new EntryForm(title, details, value, limitdate);
 		EntryService es = new EntryService();
@@ -51,7 +51,7 @@ public class EntryServlet extends HttpServlet {
 	 * @param limitdate 「YYYY/MM/DD」形式かの判定
 	 * @return エラー出力文字のList
 	 */
-	private List<String> validate(String title,int value,String limitdate) {
+	private List<String> validate(String title,String value,String limitdate) {
 		List<String> err = new ArrayList<>();
         // Date型変換
 		if(title.equals("")) {
@@ -59,7 +59,7 @@ public class EntryServlet extends HttpServlet {
         }else if(100<title.length()) {
         	err.add("題名は100文字以内にしてください。");
         }
-		if(value<1||3<value) {
+		if(value==null||!(value.equals("1")||value.equals("2")||value.equals("3"))) {
 			err.add("重要度の入力エラーが発生しました。");
 		}
 		if(limitdate != null) {
