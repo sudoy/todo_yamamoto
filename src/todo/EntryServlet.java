@@ -40,6 +40,7 @@ public class EntryServlet extends HttpServlet {
 		if(err.size()>0) {
 			req.setAttribute("pack", new EntryForm(title, details, req.getParameter("value"), req.getParameter("limitdate")));
 			getServletContext().getRequestDispatcher("/WEB-INF/entry.jsp").forward(req, resp);
+			session.invalidate();
 			return;
 		}
 		EntryForm get = new EntryForm(title, details, value, limitdate);

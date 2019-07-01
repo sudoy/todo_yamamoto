@@ -18,8 +18,6 @@ public class DeleteServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// データの設定
 		HttpSession session = req.getSession();
-		session.setAttribute("err",null);
-		session.setAttribute("success",null);
 		String id = req.getParameter("id");
 		List<String> err = validate(id);
 		// errに文字が入っているか。(エラーの判定)
@@ -31,7 +29,7 @@ public class DeleteServlet extends HttpServlet {
 		// SQLに出力
 		DeleteService ds = new DeleteService();
 		ds.deleteDB(id);
-		session.setAttribute("success", "No."+id+" の更新に成功しました");
+		session.setAttribute("success", "No."+id+" の削除に成功しました");
 		resp.sendRedirect("index.html");
 	}
 

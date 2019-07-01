@@ -46,6 +46,7 @@ public class UpdateServlet extends HttpServlet {
 			// 入力データを返す
 			req.setAttribute("pack", new UpdateForm(id,title, details,Integer.valueOf(req.getParameter("value")), limitdate));
 			getServletContext().getRequestDispatcher("/WEB-INF/update.jsp").forward(req, resp);
+			session.invalidate();
 			return;
 		}
 		// SQLに出力
