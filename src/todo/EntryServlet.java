@@ -40,6 +40,7 @@ public class EntryServlet extends HttpServlet {
 		if(err.size()>0) {
 			req.setAttribute("pack", new EntryForm(title, details, req.getParameter("value"), req.getParameter("limitdate")));
 			getServletContext().getRequestDispatcher("/WEB-INF/entry.jsp").forward(req, resp);
+			// session の無効化(疑似的なreqとして使える→外にsessionが持ち出されない)
 			session.invalidate();
 			return;
 		}
