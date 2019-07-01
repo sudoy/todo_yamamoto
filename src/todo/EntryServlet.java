@@ -36,6 +36,7 @@ public class EntryServlet extends HttpServlet {
 		}
 		List<String> err = validate(title, value, limitdate);
 		session.setAttribute("err", err);
+
 		// errに文字が入っているか。エラーの判定
 		if(err.size()>0) {
 			req.setAttribute("pack", new EntryForm(title, details, req.getParameter("value"), req.getParameter("limitdate")));
@@ -44,10 +45,12 @@ public class EntryServlet extends HttpServlet {
 			session.invalidate();
 			return;
 		}
+
+		// SQLｎ出力
 		EntryForm get = new EntryForm(title, details, value, limitdate);
 		EntryService es = new EntryService();
-		es.setDB(get); // SQL出力
-		session.setAttribute("success", "追加登録に成功しました");
+		int id = es.setDB(get);
+		session.setAttribute("success", "No."+id+" の登録に成功しました");
 		resp.sendRedirect("index.html");
 	}
 
