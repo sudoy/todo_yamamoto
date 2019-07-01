@@ -6,7 +6,15 @@ import java.sql.ResultSet;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
+/**
+ * DB接続の共通化
+ */
 public class DBUtils {
+	/**
+	 * Connectionの初期設定のメソッド
+	 * @return 設定済みのConnection
+	 * @throws Exception
+	 */
 	public static Connection getConnection() throws Exception {
 		Context initContext = new InitialContext();
 		Context envContext = (Context)initContext.lookup("java:/comp/env");

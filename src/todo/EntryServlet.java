@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import todo.forms.EntryForm;
 import todo.services.EntryService;
@@ -18,10 +19,14 @@ import todo.services.EntryService;
 public class EntryServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		HttpSession session = req.getSession();
+		session.invalidate();
 		getServletContext().getRequestDispatcher("/WEB-INF/entry.jsp").forward(req, resp);
 	}
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// データの設定
+		HttpSession session = req.getSession();
 		String title = req.getParameter("title");
 		String details = req.getParameter("details");
 		String value = req.getParameter("value");
@@ -30,7 +35,7 @@ public class EntryServlet extends HttpServlet {
 			limitdate = null;
 		}
 		List<String> err = validate(title, value, limitdate);
-		req.setAttribute("err", err);
+		session.setAttribute("err", err);
 		// errに文字が入っているか。エラーの判定
 		if(err.size()>0) {
 			req.setAttribute("pack", new EntryForm(title, details, req.getParameter("value"), req.getParameter("limitdate")));
@@ -40,7 +45,7 @@ public class EntryServlet extends HttpServlet {
 		EntryForm get = new EntryForm(title, details, value, limitdate);
 		EntryService es = new EntryService();
 		es.setDB(get); // SQL出力
-
+		session.setAttribute("success", "追加登録に成功しました");
 		resp.sendRedirect("index.html");
 	}
 

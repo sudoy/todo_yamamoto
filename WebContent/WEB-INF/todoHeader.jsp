@@ -33,13 +33,15 @@
 			</div><!-- /.container-fluid -->
 		</nav>
 		<div class="container">
+<c:if test="${!empty(success)}">
 			<div class="alert alert-success alert-dismissible" role="alert">
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<strong> 成功しました！</strong><br>
 				<ul>
-					<li>No,27のTodoを更新しました。</li>
+					<li>${success}</li>
 				</ul>
 			</div>
+</c:if>
 <c:if test="${!empty(err)}">
 			<div class="alert alert-warning alert-dismissible" role="alert">
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>

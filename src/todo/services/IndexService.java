@@ -19,12 +19,16 @@ public class IndexService {
 		String sql = null;
 		ResultSet rs = null;
 		List<IndexForm> pack = new ArrayList<>();
+		// SQL文
 		sql = "SELECT id,title,value,limitdate FROM mainlist ORDER BY id";
+
+		// DB操作
 		try{
 			con = DBUtils.getConnection();
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
 			while(rs.next()){
+				// 取得したデータの変換
 				int id = rs.getInt("id");
 				String title = rs.getString("title");
 				String value = HTMLUtils.valueFormat(rs.getInt("value"));

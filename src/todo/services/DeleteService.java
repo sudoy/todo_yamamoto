@@ -9,6 +9,11 @@ import javax.servlet.ServletException;
 import todo.utils.DBUtils;
 
 public class DeleteService {
+	/**
+	 * sqlのDELETEを行うメソッドです。
+	 * @param id 削除するidを指定します。
+	 * @throws ServletException
+	 */
 	public void deleteDB(String id) throws ServletException {
 		Connection con = null;
 		PreparedStatement ps = null;

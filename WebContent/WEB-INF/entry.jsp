@@ -22,7 +22,7 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<div class="col-sm-2 textright bold">重要度</div>
+					<div class="col-sm-2 zeropadding textright bold">重要度</div>
 					<div class="col-sm-10">
 						<label><input type="radio" name="value" value="3" ${HTMLUtils.checkedRadio(pack,3)}> ★★★</label><br>
 						<label><input type="radio" name="value" value="2" ${HTMLUtils.checkedRadio(pack,2)}> ★★</label><br>
@@ -30,7 +30,7 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="date" class="col-sm-2  koumoku textright textdown">期限</label>
+					<label for="date" class="col-sm-2 textright textdown">期限</label>
 					<div class="col-sm-10">
 						<input type="text" name="limitdate" class="form-control" id="date" value="${pack.limitdate}" placeholder="期限">
 					</div>
