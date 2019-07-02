@@ -20,7 +20,8 @@ public class EntryServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession();
-		session.invalidate();
+		session.setAttribute("err","");
+		session.setAttribute("success","");
 		getServletContext().getRequestDispatcher("/WEB-INF/entry.jsp").forward(req, resp);
 	}
 	@Override
@@ -42,7 +43,8 @@ public class EntryServlet extends HttpServlet {
 			req.setAttribute("pack", new EntryForm(title, details, req.getParameter("value"), req.getParameter("limitdate")));
 			getServletContext().getRequestDispatcher("/WEB-INF/entry.jsp").forward(req, resp);
 			// session の無効化(疑似的なreqとして使える→外にsessionが持ち出されない)
-			session.invalidate();
+			session.setAttribute("err","");
+			session.setAttribute("success","");
 			return;
 		}
 

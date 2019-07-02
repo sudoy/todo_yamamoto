@@ -31,13 +31,14 @@ public class EntryService {
 			ps.setString(3, value);
 			ps.setString(4, limitdate);
 			ps.executeUpdate();
+			// 追加したデータのidの取得
 			rs = con.prepareStatement("SELECT LAST_INSERT_ID()").executeQuery();
 			rs.next();
 			id = rs.getInt("LAST_INSERT_ID()");
 		}catch(Exception e){
 			throw new ServletException(e);
 		}finally{
-			DBUtils.close(con, ps);
+			DBUtils.close(con, ps, rs);;
 		}
 		return id;
 	}

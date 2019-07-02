@@ -6,7 +6,7 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>todoリスト</title>
+		<title>entry</title>
 		<link href="css/bootstrap.min.css" rel="stylesheet">
 		<link href="css/mystyle.css" rel="stylesheet">
 		<!--[if lt IE 9]>
@@ -27,41 +27,44 @@
 					</button>
 					<a class="navbar-brand" href="#">Todoリスト</a>
 				</div>
-				<div class="navbar-form navbar-right">
-					<div class="btn-group">
-						<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							${name} <span class="caret"></span>
-						</button>
-						<ul class="dropdown-menu">
-							<li><a href="logout.html">ログアウト</a></li>
-						</ul>
-					</div>
-				</div>
 
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<!-- /.navbar-collapse -->
 			</div><!-- /.container-fluid -->
 		</nav>
 		<div class="container">
-<c:if test="${!empty(success)}">
-			<div class="alert alert-success alert-dismissible" role="alert">
-				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<strong> 成功しました！</strong><br>
-				<ul>
-					<li>${success}</li>
-				</ul>
-			</div>
-</c:if>
+			<div class="col-md-6 col-md-offset-3 bgc-white shadow tmargin30">
+				<h1 class="size16 bold zeromargin padding15">ログイン</h1>
+				<br>
 <c:if test="${!empty(err)}">
-			<div class="alert alert-warning alert-dismissible" role="alert">
-				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<strong> エラーが発生しました！</strong><br>
-				<ul>
-				<c:forEach var="errlist" items="${err}">
-					<li>${errlist}</li>
-				</c:forEach>
-				</ul>
-			</div>
+				<div class="alert alert-dismissible login" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong> エラーが発生しました！</strong><br>
+					<ul>
+						<li>${err}</li>
+					</ul>
+				</div>
 </c:if>
-
+				<form class="form-horizontal" method="POST" action="login.html">
+					<div class="form-group">
+						<label for="inputEmail3" class="col-sm-4 control-label">メールアドレス</label>
+						<div class="col-sm-7">
+							<input type="email" name="email" class="form-control" id="inputEmail3" placeholder="メールアドレス">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="inputPassword3" class="col-sm-4 control-label">パスワード</label>
+						<div class="col-sm-7">
+							<input type="password" name="pass" class="form-control" id="inputPassword3" placeholder="パスワード">
+						</div>
+					</div>
+					<br>
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-10 textright">
+							<button type="submit" class="btn btn-info"><span class="glyphicon glyphicon-off" aria-hidden="true"></span> ログイン</button>
+						</div>
+					</div>
+				</form>
+			</div>
 		</div>
+<jsp:include page="todoFooter.jsp" />

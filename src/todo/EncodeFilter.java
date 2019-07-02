@@ -8,6 +8,9 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebFilter("/*")
 public class EncodeFilter implements Filter {
@@ -22,7 +25,14 @@ public class EncodeFilter implements Filter {
 			throws IOException, ServletException {
 		// 文字コードをUTF-8に変更
 		req.setCharacterEncoding("UTF-8");
-
+		String target = ((HttpServletRequest)req).getRequestURI();
+		System.out.println(target);
+		HttpSession session = ((HttpServletRequest)req).getSession();
+		if(!target.equals("/todo_yamamoto/login.html")&&session.getAttribute("name")==null) {
+			session.setAttribute("err", "不正なアクセスです");
+			((HttpServletResponse)resp).sendRedirect("login.html");
+			return;
+		}
 		chain.doFilter(req, resp);
 	}
 

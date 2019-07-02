@@ -21,7 +21,8 @@ public class UpdateServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		UpdateService us = new UpdateService();
 		HttpSession session = req.getSession();
-		session.invalidate();
+		session.setAttribute("err","");
+		session.setAttribute("success","");
 		req.setAttribute("pack", us.getDB(req.getParameter("id")));
 		getServletContext().getRequestDispatcher("/WEB-INF/update.jsp").forward(req, resp);
 	}
@@ -47,7 +48,8 @@ public class UpdateServlet extends HttpServlet {
 			req.setAttribute("pack", new UpdateForm(id,title, details,Integer.valueOf(req.getParameter("value")), limitdate));
 			getServletContext().getRequestDispatcher("/WEB-INF/update.jsp").forward(req, resp);
 			// session の無効化(疑似的なreqとして使える→外にsessionが持ち出されない)
-			session.invalidate();
+			session.setAttribute("err","");
+			session.setAttribute("success","");
 			return;
 		}
 		// SQLに出力
