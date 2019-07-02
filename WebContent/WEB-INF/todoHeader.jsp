@@ -19,14 +19,9 @@
 			<div class="container">
 				<!-- Brand and toggle get grouped for better mobile display -->
 				<div class="navbar-header">
-					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
 					<a class="navbar-brand" href="#">Todoリスト</a>
 				</div>
+<c:if test="${!empty(name)}">
 				<div class="navbar-form navbar-right">
 					<div class="btn-group">
 						<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -37,31 +32,8 @@
 						</ul>
 					</div>
 				</div>
-
+</c:if>
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<!-- /.navbar-collapse -->
 			</div><!-- /.container-fluid -->
 		</nav>
-		<div class="container">
-<c:if test="${!empty(success)}">
-			<div class="alert alert-success alert-dismissible" role="alert">
-				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<strong> 成功しました！</strong><br>
-				<ul>
-					<li>${success}</li>
-				</ul>
-			</div>
-</c:if>
-<c:if test="${!empty(err)}">
-			<div class="alert alert-warning alert-dismissible" role="alert">
-				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<strong> エラーが発生しました！</strong><br>
-				<ul>
-				<c:forEach var="errlist" items="${err}">
-					<li>${errlist}</li>
-				</c:forEach>
-				</ul>
-			</div>
-</c:if>
-
-		</div>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="todoHeader.jsp" />
+<jsp:include page="todoError.jsp" />
 		<div class="container">
 			<table class="table">
 			<tr class="trhnc">

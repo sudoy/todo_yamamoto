@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="todo.utils.HTMLUtils" %>
 <jsp:include page="todoHeader.jsp" />
+<jsp:include page="todoError.jsp" />
 		<div class="container">
 			<div class="btm-border">
 				<h1 class="formsize">登録フォーム</h1>

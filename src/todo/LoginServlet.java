@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import todo.forms.LoginForm;
 import todo.services.LoginService;
 @WebServlet("/login.html")
 public class LoginServlet extends HttpServlet {
@@ -27,6 +28,7 @@ public class LoginServlet extends HttpServlet {
 		String name = ls.checkDB(email, pass);
 		if(name.equals("")) {
 			session.setAttribute("err","メールアドレス、又はパスワードが間違っています。");
+			req.setAttribute("pack",new LoginForm(email));
 			getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(req, resp);
 		}
 		session.setAttribute("name", name);
