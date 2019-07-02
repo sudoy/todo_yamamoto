@@ -35,17 +35,18 @@ public class UpdateServlet extends HttpServlet {
 		String details = req.getParameter("details");
 		String value = req.getParameter("value");
 		String limitdate = req.getParameter("limitdate");
+		String did = req.getParameter("did");
 		// limitdateはSQLにてDATE型であり、空文字だとエラーが出るためNULLにする
 		if(limitdate.equals("")) {
 			limitdate = null;
 		}
-		List<String> err = validate(id,title, value, limitdate);
+		List<String> err = validate(id,title, value, limitdate,did);
 		session.setAttribute("err", err);
 
 		// errに文字が入っているか。(エラーの判定)
 		if(err.size()>0) {
 			// 入力データを返す
-			req.setAttribute("pack", new UpdateForm(id,title, details,Integer.valueOf(req.getParameter("value")), limitdate));
+			req.setAttribute("pack", new UpdateForm(id,title, details,Integer.valueOf(req.getParameter("value")), limitdate,did));
 			getServletContext().getRequestDispatcher("/WEB-INF/update.jsp").forward(req, resp);
 			// session の無効化(疑似的なreqとして使える→外にsessionが持ち出されない)
 			session.setAttribute("err","");
@@ -54,7 +55,7 @@ public class UpdateServlet extends HttpServlet {
 		}
 		// SQLに出力
 		UpdateService us = new UpdateService();
-		us.updateDB(new UpdateForm(id,title, details, Integer.valueOf(req.getParameter("value")), limitdate));
+		us.updateDB(new UpdateForm(id,title, details, Integer.valueOf(req.getParameter("value")), limitdate,did));
 		session.setAttribute("success","No."+id+" の更新に成功しました");
 		resp.sendRedirect("index.html");
 	}
@@ -66,7 +67,7 @@ public class UpdateServlet extends HttpServlet {
 	 * @param limitdate 「YYYY/MM/DD」形式かの判定
 	 * @return エラー出力文字のList
 	 */
-	private List<String> validate(String id,String title,String value,String limitdate) {
+	private List<String> validate(String id,String title,String value,String limitdate,String did) {
 		List<String> err = new ArrayList<>();
 		if(id.equals("")) {
 			err.add("idが存在しません。");
@@ -78,6 +79,9 @@ public class UpdateServlet extends HttpServlet {
         }
 		if(value==null||!(value.equals("1")||value.equals("2")||value.equals("3"))) {
 			err.add("重要度の入力エラーが発生しました。");
+		}
+		if(did==null||!(did.equals("1")||did.equals("2"))) {
+			err.add("ステータスの入力エラーが発生しました。");
 		}
 		if(limitdate != null) {
 			try {

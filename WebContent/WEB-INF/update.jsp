@@ -26,9 +26,16 @@
 				<div class="form-group">
 					<div class="col-sm-2 zeropadding textright bold">重要度</div>
 					<div class="col-sm-10">
-						<label><input type="radio" name="value" value="3" ${HTMLUtils.selectRadio(pack,3)}> ★★★</label><br>
-						<label><input type="radio" name="value" value="2" ${HTMLUtils.selectRadio(pack,2)}> ★★</label><br>
-						<label><input type="radio" name="value" value="1" ${HTMLUtils.selectRadio(pack,1)}> ★</label>
+						<label><input type="radio" name="value" value="3" ${HTMLUtils.selectValue(pack,3,3)}> ★★★</label><br>
+						<label><input type="radio" name="value" value="2" ${HTMLUtils.selectValue(pack,2,3)}> ★★</label><br>
+						<label><input type="radio" name="value" value="1" ${HTMLUtils.selectValue(pack,1,3)}> ★</label>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-2 zeropadding textright bold">ステータス</div>
+					<div class="col-sm-10">
+						<label><input type="radio" name="did" value="1" ${HTMLUtils.selectDid(pack,1,2)}>未完了</label><br>
+						<label><input type="radio" name="did" value="2" ${HTMLUtils.selectDid(pack,2,2)}>完了</label>
 					</div>
 				</div>
 				<div class="form-group">

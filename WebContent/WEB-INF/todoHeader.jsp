@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="todo.utils.HTMLUtils" %>
 <!DOCTYPE html>
 <html lang="ja">
 	<head>
@@ -32,8 +33,21 @@
 						</ul>
 					</div>
 				</div>
+				<div class="navbar-form navbar-right">
+					<form method="POST" action="index.html">
+						<div class="btn-group" role="group" aria-label="...">
+							<button type="submit" name="did1" value="" class="btn btn-warning" ${HTMLUtils.pushed(didValue,"1")}>
+								<span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> 未完了のみ
+							</button>
+							<button type="submit" name="did2" value="" class="btn btn-warning" ${HTMLUtils.pushed(didValue,"2")}>
+								<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> 全て
+							</button>
+						</div>
+					</form>
+				</div>
 </c:if>
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<!-- /.navbar-collapse -->
 			</div><!-- /.container-fluid -->
 		</nav>
+			<div class="container">

@@ -17,7 +17,7 @@ public class UpdateService {
 		String sql = null;
 		ResultSet rs = null;
 		UpdateForm pack = null;
-		sql = "SELECT title,details,value,limitdate FROM mainlist WHERE id = ?";
+		sql = "SELECT title,details,value,limitdate,did FROM mainlist WHERE id = ?";
 		try{
 			con = DBUtils.getConnection();
 			ps = con.prepareStatement(sql);
@@ -28,7 +28,11 @@ public class UpdateService {
 				String details = rs.getString("details");
 				int value = rs.getInt("value");
 				String limitdate =  HTMLUtils.limitdateFormat(rs.getString("limitdate"));
-				pack = new UpdateForm(id,title, details, value, limitdate);
+				String did= rs.getString("did");
+				if(limitdate=="") {
+					limitdate = null;
+				}
+				pack = new UpdateForm(id,title, details, value, limitdate,did);
 			}
 		}catch(Exception e){
 			throw new ServletException(e);
@@ -43,19 +47,21 @@ public class UpdateService {
 		String details = get.getDetails();
 		String value = String.valueOf(get.getValue());
 		String limitdate = get.getLimitdate();
+		String did = get.getDid();
 		Connection con = null;
 		PreparedStatement ps = null;
 		String sql = null;
 		//DB更新
 		try {
 			con = DBUtils.getConnection();
-			sql = "UPDATE mainlist SET title = ?,details = ?,value = ?,limitdate = ? WHERE id = ?";
+			sql = "UPDATE mainlist SET title = ?,details = ?,value = ?,limitdate = ?,did = ? WHERE id = ?";
 			ps = con.prepareStatement(sql);
 			ps.setString(1, title);
 			ps.setString(2, details);
 			ps.setString(3, value);
 			ps.setString(4, limitdate);
-			ps.setString(5, id);
+			ps.setString(5, did);
+			ps.setString(6, id);
 			ps.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();

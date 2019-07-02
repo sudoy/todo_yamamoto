@@ -5,15 +5,8 @@
 			<div class="col-md-6 col-md-offset-3 bgc-white shadow tmargin30">
 				<h1 class="size16 bold zeromargin padding15">ログイン</h1>
 				<br>
-<c:if test="${!empty(err)}">
-				<div class="alert alert-dismissible login" role="alert">
-					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<strong> エラーが発生しました！</strong><br>
-					<ul>
-						<li>${err}</li>
-					</ul>
-				</div>
-</c:if>
+				<div>
+<jsp:include page="todoError.jsp" />
 				<form class="form-horizontal" method="POST" action="login.html">
 					<div class="form-group">
 						<label for="inputEmail3" class="col-sm-4 control-label">メールアドレス</label>

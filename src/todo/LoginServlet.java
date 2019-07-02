@@ -23,7 +23,6 @@ public class LoginServlet extends HttpServlet {
 		session.setAttribute("err","");
 		String email = req.getParameter("email");
 		String pass = req.getParameter("pass");
-		System.out.println(email + ":" + pass);
 		LoginService ls = new LoginService();
 		String name = ls.checkDB(email, pass);
 		if(name.equals("")) {

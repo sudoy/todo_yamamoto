@@ -23,14 +23,23 @@ public class LoginFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
 			throws IOException, ServletException {
-		String target = ((HttpServletRequest)req).getRequestURI();
-		System.out.println(target);
 		HttpSession session = ((HttpServletRequest)req).getSession();
-		if(!target.equals("/todo_yamamoto/login.html")&&session.getAttribute("name")==null) {
+		if(session.getAttribute("name")==null) {
 			session.setAttribute("err", "不正なアクセスです");
 			((HttpServletResponse)resp).sendRedirect("login.html");
 			return;
 		}
+		if(session.getAttribute("didValue")==null) {
+			session.setAttribute("didValue","1");
+		}else {
+			if(req.getParameter("did1")!=null) {
+				session.setAttribute("didValue","1");
+			}
+			if(req.getParameter("did2")!=null) {
+				session.setAttribute("didValue","2");
+			}
+		}
+
 		chain.doFilter(req, resp);
 	}
 

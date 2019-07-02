@@ -5,14 +5,17 @@ public class IndexForm {
 	private String title;
 	private String value;
 	private String limitdate;
+	private String did;
 
-
-	public IndexForm(int id, String title, String value, String limitdate) {
+	public IndexForm(int id, String title, String value, String limitdate, String did) {
+		super();
 		this.id = id;
 		this.title = title;
 		this.value = value;
 		this.limitdate = limitdate;
+		this.did = did;
 	}
+
 	public int getId() {
 		return id;
 	}
@@ -36,5 +39,13 @@ public class IndexForm {
 	}
 	public void setLimitdate(String limitdate) {
 		this.limitdate = limitdate;
+	}
+
+	public String getDid() {
+		return did;
+	}
+
+	public void setDid(String did) {
+		this.did = did;
 	}
 }
