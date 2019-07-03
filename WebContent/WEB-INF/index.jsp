@@ -5,7 +5,7 @@
 <jsp:include page="todoError.jsp" />
 		<form method="POST" action="index.html">
 		<div class="container">
-			<button type="submit" class="btn btn-success" ><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> 完了</button><br><br>
+			<button type="submit" class="btn btn-success" name="update"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> 完了</button><br><br>
 		</div>
 		<div class="container">
 			<table class="table">
@@ -19,6 +19,7 @@
 			<tr>
 				<td class="tcenter">
 				<input type="hidden" name="id" value="${p.id}">
+				<input type="hidden" name="did" value="${p.did}">
 				<label><input type="checkbox" name="check" value="${p.id}" ${HTMLUtils.checked(p)}>${p.id}</label>
 				</td>
 				<td class="tcenter"><a href="update.html?id=${p.id}">${p.title}</a></td>

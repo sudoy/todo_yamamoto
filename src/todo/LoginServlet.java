@@ -25,11 +25,14 @@ public class LoginServlet extends HttpServlet {
 		String pass = req.getParameter("pass");
 		LoginService ls = new LoginService();
 		String name = ls.checkDB(email, pass);
+
+		// 名前が出力されない場合エラー
 		if(name.equals("")) {
 			session.setAttribute("err","メールアドレス、又はパスワードが間違っています。");
 			req.setAttribute("pack",new LoginForm(email));
 			getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(req, resp);
 		}
+		// ログイン成功
 		session.setAttribute("name", name);
 		resp.sendRedirect("index.html");
 	}

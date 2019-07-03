@@ -10,6 +10,12 @@ import todo.forms.EntryForm;
 import todo.utils.DBUtils;
 
 public class EntryService {
+	/**
+	 * SQLに書き込み(INSERT)するメソッドです。
+	 * @param get EntryForm型の書き込みたい情報
+	 * @return 書き込みを行ったID番号
+	 * @throws ServletException
+	 */
 	public int setDB(EntryForm get) throws ServletException {
 		String title = get.getTitle();
 		String details = get.getDetails();

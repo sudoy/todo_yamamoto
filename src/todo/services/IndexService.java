@@ -4,11 +4,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 
 import todo.forms.IndexForm;
+import todo.forms.UpdateForm;
 import todo.utils.DBUtils;
 import todo.utils.HTMLUtils;
 
@@ -26,31 +29,81 @@ public class IndexService {
 		ResultSet rs = null;
 		List<IndexForm> pack = new ArrayList<>();
 		// DB操作
-		try{
+		try {
 			con = DBUtils.getConnection();
-			if(did.equals("1")) {
+			if (did.equals("1")) {
 				sql = "SELECT id,title,value,limitdate,did FROM mainlist where did = ? ORDER BY id";
 				ps = con.prepareStatement(sql);
 				ps.setString(1, "1");
-			}else {
+			} else {
 				sql = "SELECT id,title,value,limitdate,did FROM mainlist ORDER BY id";
 				ps = con.prepareStatement(sql);
 			}
 			rs = ps.executeQuery();
-			while(rs.next()){
+			while (rs.next()) {
 				// 取得したデータの変換
 				int id = rs.getInt("id");
 				String title = rs.getString("title");
 				String value = HTMLUtils.valueFormat(rs.getInt("value"));
-				String limitdate =  HTMLUtils.limitdateFormat(rs.getString("limitdate"));
+				String limitdate = HTMLUtils.limitdateFormat(rs.getString("limitdate"));
 				String did1 = rs.getString("did");
-				pack.add(new IndexForm(id, title, value, limitdate,did1));
+				pack.add(new IndexForm(id, title, value, limitdate, did1));
 			}
-		}catch(Exception e){
+		} catch (Exception e) {
 			throw new ServletException(e);
-		}finally{
-			DBUtils.close(con,ps,rs);
+		} finally {
+			DBUtils.close(con, ps, rs);
 		}
 		return pack;
+	}
+
+	/**
+	 * DBのdidの更新を行うメソッド
+	 * @param id 表示されているidのString配列
+	 * @param checked チェックが付いているidのString配列
+	 * @param didVal 表示されているidのdidの値のString配列
+	 * @throws ServletException
+	 */
+	public void updateDB(String[] id, String[] checked,String[] didVal) throws ServletException {
+		Map<String, String> map = new HashMap<>();
+		if(id!=null) {
+			for(int i =0;i<id.length;i++) {
+				map.put(id[i], didVal[i]);
+			}
+			UpdateService us = new UpdateService();
+
+			// checkのついたデータのdidを2にする
+			if(checked!=null) {
+				for(String c:checked) {
+					 // 元が1のみ更新
+					if(map.get(c).equals("1")) {
+						UpdateForm uf = us.getDB(c);
+						uf.setDid("2");
+						us.updateDB(uf);
+					}
+					map.remove(c);
+				}
+			}
+
+
+			// 残りのデータのdidを1にする
+			for (String key : map.keySet()) {
+				// 元が2のみ更新
+				if(map.get(key).equals("2")) {
+					UpdateForm uf = us.getDB(key);
+					uf.setDid("1");
+					us.updateDB(uf);
+				}
+			}
+		}
+
+	}
+
+	public List<IndexForm> selectDB(String did) throws ServletException {
+		if (did.equals("1")) {
+			return getDB("1");
+		} else {
+			return getDB("");
+		}
 	}
 }

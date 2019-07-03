@@ -11,6 +11,12 @@ import todo.utils.DBUtils;
 import todo.utils.HTMLUtils;
 
 public class UpdateService {
+	/**
+	 * 指定したIDのデータを取得するメソッド
+	 * @param id 取得したいSQL番号
+	 * @return UpdateForm型のデータ
+	 * @throws ServletException
+	 */
 	public UpdateForm getDB(String id) throws ServletException {
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -41,6 +47,12 @@ public class UpdateService {
 		}
 		return pack;
 	}
+
+	/**
+	 * SQLを更新するメソッド
+	 * @param get UpdateForm型の更新したい情報データ
+	 * @throws ServletException
+	 */
 	public void updateDB(UpdateForm get) throws ServletException {
 		String id = get.getId();
 		String title = get.getTitle();
