@@ -89,7 +89,7 @@ public class IndexService {
 				}
 			}
 			if(!message.equals("")) {
-				success.add("No. " + message + "を完了にしました");
+				success.add("No. " + message + "を完了にしました！");
 			}
 			message ="";
 
@@ -104,7 +104,7 @@ public class IndexService {
 				}
 			}
 			if(!message.equals("")) {
-				success.add("No. " + message + "を未完了にしました");
+				success.add("No. " + message + "を未完了にしました！");
 			}
 		}
 		return success;

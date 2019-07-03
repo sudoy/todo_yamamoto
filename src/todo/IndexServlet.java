@@ -70,6 +70,12 @@ public class IndexServlet extends HttpServlet {
 		return err;
 	}
 
+	/**
+	 * 配列に対する正規表現の検査
+	 * @param list 検査するString配列
+	 * @param match 正規表現
+	 * @return 中身がすべて正しければtrueその他はfalse
+	 */
 	public static boolean checkList(String[] list,String match) {
 		for(String s:list) {
 			if(!s.matches(match)) {
