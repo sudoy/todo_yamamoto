@@ -24,6 +24,8 @@ public class IndexServlet extends HttpServlet {
 		req.setAttribute("pack", is.selectDB(did));
 
 		getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(req, resp);
+		session.setAttribute("err","");
+		session.setAttribute("success","");
 	}
 
 	@Override
@@ -39,7 +41,7 @@ public class IndexServlet extends HttpServlet {
 		if(update!=null) {
 			List<String> err = validate(checked, id, didVal);
 			session.setAttribute("err", err);
-			if(err.size()>0) {
+			if(err.size()==0) {
 				is.updateDB(id, checked,didVal);
 			}
 		}
@@ -47,6 +49,8 @@ public class IndexServlet extends HttpServlet {
 		String did = (String) session.getAttribute("didValue");
 		req.setAttribute("pack", is.selectDB(did));
 		getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(req, resp);
+		session.setAttribute("err","");
+		session.setAttribute("success","");
 	}
 
 	public static List<String> validate(String[] checked,String[] id,String[] didVal){
@@ -60,7 +64,7 @@ public class IndexServlet extends HttpServlet {
 		if(id!=null&&didVal!=null&&id.length!=didVal.length) {
 			err.add("入力数が一致しません");
 		}
-		if(checked!=null&&!matchId(checked, didVal)) {
+		if(checked!=null&&!matchId(checked, id)) {
 			err.add("不正なcheckが入力されました。");
 		}
 		return err;
