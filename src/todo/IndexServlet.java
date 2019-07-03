@@ -42,7 +42,7 @@ public class IndexServlet extends HttpServlet {
 			List<String> err = validate(checked, id, didVal);
 			session.setAttribute("err", err);
 			if(err.size()==0) {
-				is.updateDB(id, checked,didVal);
+				session.setAttribute("success",is.updateDB(id, checked,didVal));
 			}
 		}
 

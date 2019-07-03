@@ -5,7 +5,9 @@
 				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<strong> 成功しました！</strong><br>
 				<ul>
-					<li>${success}</li>
+				<c:forEach var="suc" items="${success}">
+					<li>${suc}</li>
+				</c:forEach>
 				</ul>
 			</div>
 </c:if>

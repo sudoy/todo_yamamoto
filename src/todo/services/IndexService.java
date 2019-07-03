@@ -62,9 +62,12 @@ public class IndexService {
 	 * @param id 表示されているidのString配列
 	 * @param checked チェックが付いているidのString配列
 	 * @param didVal 表示されているidのdidの値のString配列
+	 * @return 成功メッセージのList<String>
 	 * @throws ServletException
 	 */
-	public void updateDB(String[] id, String[] checked,String[] didVal) throws ServletException {
+	public List<String> updateDB(String[] id, String[] checked,String[] didVal) throws ServletException {
+		List<String> success = new ArrayList<>();
+		String message = "";
 		Map<String, String> map = new HashMap<>();
 		if(id!=null) {
 			for(int i =0;i<id.length;i++) {
@@ -80,11 +83,15 @@ public class IndexService {
 						UpdateForm uf = us.getDB(c);
 						uf.setDid("2");
 						us.updateDB(uf);
+						message += c + " ";
 					}
 					map.remove(c);
 				}
 			}
-
+			if(!message.equals("")) {
+				success.add("No. " + message + "を完了にしました");
+			}
+			message ="";
 
 			// 残りのデータのdidを1にする
 			for (String key : map.keySet()) {
@@ -93,10 +100,14 @@ public class IndexService {
 					UpdateForm uf = us.getDB(key);
 					uf.setDid("1");
 					us.updateDB(uf);
+					message += key + " ";
 				}
 			}
+			if(!message.equals("")) {
+				success.add("No. " + message + "を未完了にしました");
+			}
 		}
-
+		return success;
 	}
 
 	public List<IndexForm> selectDB(String did) throws ServletException {
