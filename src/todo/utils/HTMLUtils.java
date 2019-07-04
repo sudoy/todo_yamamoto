@@ -102,4 +102,26 @@ public class HTMLUtils {
 		}
 		return "";
 	}
+
+	public static String nowPageSet(String nowPage,int page) {
+		if(nowPage.equals(page + "")) {
+			return  "active";
+		}
+		return "";
+	}
+
+	public static String checkStartEnd(int num,String nowPage) {
+		if(nowPage.equals(num + "")) {
+			return  "disabled";
+		}
+		return "";
+	}
+
+	public static String pageIndexControl(String link,String pagelimit) {
+		if(pagelimit.equals(link)) {
+			return "#";
+		}
+		return "index.html?page=" + link;
+	}
+
 }

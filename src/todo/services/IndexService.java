@@ -19,33 +19,39 @@ public class IndexService {
 	/**
 	 * indexに表示するデータの取得
 	 * @param did 1が未完了、その他はすべてを指定する
+	 * @param nowPage 現在のページ数(limitの指定に使う)
 	 * @return List<IndexForm>型のデータ
 	 * @throws ServletException
 	 */
-	public List<IndexForm> getDB(String did) throws ServletException {
+	public List<IndexForm> getDB(String did,String nowPage) throws ServletException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		String sql = null;
 		ResultSet rs = null;
+		int limit = (Integer.valueOf(nowPage) - 1) * 10;
 		List<IndexForm> pack = new ArrayList<>();
 		// DB操作
 		try {
 			con = DBUtils.getConnection();
 			if (did.equals("1")) {
-				sql = "SELECT id,title,value,limitdate,did FROM mainlist where did = ? ORDER BY id";
+				sql = "SELECT id,title,value,limitdate,did FROM mainlist where did = ? ORDER BY id LIMIT 10 OFFSET ?";
 				ps = con.prepareStatement(sql);
 				ps.setString(1, "1");
+				ps.setInt(2, limit);
+System.out.println(ps);
 			} else {
-				sql = "SELECT id,title,value,limitdate,did FROM mainlist ORDER BY id";
+				sql = "SELECT id,title,value,limitdate,did FROM mainlist ORDER BY id LIMIT 10 OFFSET ?";
 				ps = con.prepareStatement(sql);
+				ps.setInt(1, limit);
+System.out.println(ps);
 			}
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				// 取得したデータの変換
 				int id = rs.getInt("id");
-				String title = rs.getString("title");
+				String title = XSS(rs.getString("title"));
 				String value = HTMLUtils.valueFormat(rs.getInt("value"));
-				String limitdate = HTMLUtils.limitdateFormat(rs.getString("limitdate"));
+				String limitdate = XSS(HTMLUtils.limitdateFormat(rs.getString("limitdate")));
 				String did1 = rs.getString("did");
 				pack.add(new IndexForm(id, title, value, limitdate, did1));
 			}
@@ -110,11 +116,54 @@ public class IndexService {
 		return success;
 	}
 
-	public List<IndexForm> selectDB(String did) throws ServletException {
-		if (did.equals("1")) {
-			return getDB("1");
-		} else {
-			return getDB("");
+	/**
+	 * 目的のsqlのデータの件数を求めるメソッド
+	 * @param did didの比較(これから検索も追加する)
+	 * @return 取得されるデータの件数
+	 * @throws ServletException
+	 */
+	public double getDBLength(String did) throws ServletException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		String sql = null;
+		ResultSet rs = null;
+		double length = 0;
+		// DB操作
+		try {
+			con = DBUtils.getConnection();
+			if (did.equals("1")) {
+				sql = "SELECT count(id) FROM mainlist where did = ?";
+				ps = con.prepareStatement(sql);
+				ps.setString(1, "1");
+			} else {
+				sql = "SELECT count(id) FROM mainlist";
+				ps = con.prepareStatement(sql);
+			}
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				// 取得したデータの変換
+				length = rs.getDouble("count(id)");
+			}
+		} catch (Exception e) {
+			throw new ServletException(e);
+		} finally {
+			DBUtils.close(con, ps, rs);
 		}
+		return length;
 	}
+
+	/**
+	 * XSS(クロスサイトスクリプティング)対策の置換処理
+	 * [&,<,>,"]をそれぞれのエスケープに置換する
+	 * @param text 置換前の文字列
+	 * @return XSS対策の置換処理後の文字列
+	 */
+	public String XSS(String text) {
+		text = text.replace("&","&amp;");
+		text = text.replace("<", "&lt;");
+		text = text.replace(">", "&gt;");
+		return text.replace("\"", "&quot;");
+
+	}
+
 }

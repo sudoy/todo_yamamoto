@@ -21,9 +21,16 @@ public class IndexServlet extends HttpServlet {
 		HttpSession session = req.getSession();
 		String did = (String) session.getAttribute("didValue");
 
-		req.setAttribute("pack", is.selectDB(did));
+		String nowPage = req.getParameter("page");
+		if(nowPage==null) {nowPage = "1";}
+		req.setAttribute("nowPage",nowPage);
+		double length = is.getDBLength(did);
+		req.setAttribute("page", (int)Math.ceil(length/10));
+
+		req.setAttribute("pack", is.getDB(did,nowPage));
 
 		getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(req, resp);
+
 		session.setAttribute("err","");
 		session.setAttribute("success","");
 	}
@@ -37,6 +44,7 @@ public class IndexServlet extends HttpServlet {
 		String update = req.getParameter("update");
 		HttpSession session = req.getSession();
 
+
 		// 完了が押され、エラーがない場合のみ更新する
 		if(update!=null) {
 			List<String> err = validate(checked, id, didVal);
@@ -47,8 +55,16 @@ public class IndexServlet extends HttpServlet {
 		}
 
 		String did = (String) session.getAttribute("didValue");
-		req.setAttribute("pack", is.selectDB(did));
+
+		String nowPage = req.getParameter("page");
+		if(nowPage==null) {nowPage = "1";}
+		req.setAttribute("nowPage",nowPage);
+		double length = is.getDBLength(did);
+		req.setAttribute("page", (int)Math.ceil(length/10));
+
+		req.setAttribute("pack", is.getDB(did,nowPage));
 		getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(req, resp);
+
 		session.setAttribute("err","");
 		session.setAttribute("success","");
 	}

@@ -5,7 +5,13 @@
 <jsp:include page="todoError.jsp" />
 		<form method="POST" action="index.html">
 		<div class="container">
-			<button type="submit" class="btn btn-success" name="update"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> 完了</button><br><br>
+			<div class="col-sm-6">
+				<button type="submit" class="btn btn-success" name="update"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> 完了</button><br><br>
+			</div>
+			<div class="col-sm-6 text-right">
+				<div><a class="btn btn-primary" href="entry.html" role="button">追加</a></div>
+			</div>
+
 		</div>
 		<div class="container">
 			<table class="table">
@@ -29,6 +35,26 @@
 </c:forEach>
 			</table>
 			</form>
-			<div><a class="btn btn-primary" href="entry.html" role="button">追加</a></div>
+<c:if test="${page > 1}">
+			<div class="col-sm-12 text-center">
+				<nav aria-label="...">
+					<ul class="pagination">
+					<li class="${HTMLUtils.checkStartEnd(1,nowPage)}">
+						<a href="${HTMLUtils.pageIndexControl(nowPage - 1,0)}" aria-label="Previous">
+						<span aria-hidden="true">&laquo;</span>
+						</a>
+					</li>
+<c:forEach var="index" begin="1" end="${page}">
+					<li class="${HTMLUtils.nowPageSet(nowPage,index)}"><a href="index.html?page=${index}">${index}</a></li>
+</c:forEach>
+					<li class="${HTMLUtils.checkStartEnd(page,nowPage)}">
+						<a href="${HTMLUtils.pageIndexControl(nowPage + 1,page + 1)}" aria-label="Next">
+						<span aria-hidden="true">&raquo;</span>
+						</a>
+					</li>
+					</ul>
+				</nav>
+			</div>
+</c:if>
 		</div>
 <jsp:include page="todoFooter.jsp" />
