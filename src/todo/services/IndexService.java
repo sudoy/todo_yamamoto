@@ -38,12 +38,10 @@ public class IndexService {
 				ps = con.prepareStatement(sql);
 				ps.setString(1, "1");
 				ps.setInt(2, limit);
-System.out.println(ps);
 			} else {
 				sql = "SELECT id,title,value,limitdate,did FROM mainlist ORDER BY id LIMIT 10 OFFSET ?";
 				ps = con.prepareStatement(sql);
 				ps.setInt(1, limit);
-System.out.println(ps);
 			}
 			rs = ps.executeQuery();
 			while (rs.next()) {

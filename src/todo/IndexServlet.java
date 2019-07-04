@@ -23,9 +23,16 @@ public class IndexServlet extends HttpServlet {
 
 		String nowPage = req.getParameter("page");
 		if(nowPage==null) {nowPage = "1";}
-		req.setAttribute("nowPage",nowPage);
+
 		double length = is.getDBLength(did);
 		req.setAttribute("page", (int)Math.ceil(length/10));
+
+		List<String> err = checkPage(nowPage, length);
+		session.setAttribute("err", err);
+		if(err.size()!=0) {
+			nowPage = "1";
+		}
+		req.setAttribute("nowPage",nowPage);
 
 		req.setAttribute("pack", is.getDB(did,nowPage));
 
@@ -37,13 +44,16 @@ public class IndexServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		HttpSession session = req.getSession();
 		String[] checked = req.getParameterValues("check");
 		String[] id = req.getParameterValues("id");
 		String[] didVal = req.getParameterValues("did");
 		IndexService is = new IndexService();
 		String update = req.getParameter("update");
-		HttpSession session = req.getSession();
-
+		String nowPage = req.getParameter("page");
+		if(nowPage==null) {nowPage = "1";}
+		String did = (String) session.getAttribute("didValue");
+		double length = is.getDBLength(did);
 
 		// 完了が押され、エラーがない場合のみ更新する
 		if(update!=null) {
@@ -54,12 +64,13 @@ public class IndexServlet extends HttpServlet {
 			}
 		}
 
-		String did = (String) session.getAttribute("didValue");
+		List<String> err = checkPage(nowPage, length);
+		session.setAttribute("err", err);
+		if(err.size()!=0) {
+			nowPage = "1";
+		}
 
-		String nowPage = req.getParameter("page");
-		if(nowPage==null) {nowPage = "1";}
 		req.setAttribute("nowPage",nowPage);
-		double length = is.getDBLength(did);
 		req.setAttribute("page", (int)Math.ceil(length/10));
 
 		req.setAttribute("pack", is.getDB(did,nowPage));
@@ -113,4 +124,18 @@ public class IndexServlet extends HttpServlet {
 		}
 		return true;
 	}
+
+	public static List<String> checkPage(String nowPage,Double length){
+		List<String> err = new ArrayList<>();
+		try {
+			int num = Integer.valueOf(nowPage);
+			if(!(1<=num&&num<=(int)Math.ceil(length/10))) {
+				err.add("不正なページ番号です。");
+			}
+		} catch (Exception e) {
+			err.add("不正なページ番号です。");
+		}
+		return err;
+	}
+
 }
