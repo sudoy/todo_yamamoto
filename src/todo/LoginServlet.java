@@ -16,6 +16,11 @@ import todo.services.LoginService;
 public class LoginServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		HttpSession session = req.getSession();
+		if(session.getAttribute("name") != null) {
+			resp.sendRedirect("index.html");
+			return;
+		}
 		getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(req, resp);
 	}
 	@Override
@@ -24,6 +29,10 @@ public class LoginServlet extends HttpServlet {
 		session.setAttribute("err","");
 		String email = req.getParameter("email");
 		String pass = req.getParameter("pass");
+		if(session.getAttribute("name") != null) {
+			resp.sendRedirect("index.html");
+			return;
+		}
 		LoginService ls = new LoginService();
 		PersonalForm personal = ls.checkDB(email, pass);
 
