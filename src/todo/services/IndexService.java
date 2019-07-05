@@ -41,7 +41,7 @@ public class IndexService {
 		try {
 			con = DBUtils.getConnection();
 			// sqlの作成
-			sql = "SELECT id,title,value,limitdate,did FROM mainlist　";
+			sql = "SELECT id,title,value,limitdate,did FROM mainlist";
 
 			// WHERE句
 			sql += "WHERE 1 = 1";
