@@ -16,10 +16,22 @@
 		<div class="container">
 			<table class="table">
 			<tr class="trhnc">
-				<th class="col-sm-1">#</th>
-				<th class="col-sm-4">題名</th>
-				<th class="col-sm-3">重要度</th>
-				<th class="col-sm-4">期限</th>
+				<th class="col-sm-1 zeropadding">
+				<button type="submit" name="sort" value="id" class="btn btn-link col-sm-12">#
+				<span class="${HTMLUtils.sortIcon(sort,'id')}" aria-hidden="true"></span></button>
+				</th>
+				<th class="col-sm-4 zeropadding">
+				<button type="submit" name="sort" value="title" class="btn btn-link col-sm-12">題名
+				<span class="${HTMLUtils.sortIcon(sort,'title')}" aria-hidden="true"></span></button>
+				</th>
+				<th class="col-sm-3 zeropadding">
+				<button type="submit" name="sort" value="value" class="btn btn-link col-sm-12">重要度
+				<span class="${HTMLUtils.sortIcon(sort,'value')}" aria-hidden="true"></span></button>
+				</th>
+				<th class="col-sm-4 zeropadding">
+				<button type="submit" name="sort" value="limitdate" class="btn btn-link col-sm-12">期限
+				<span class="${HTMLUtils.sortIcon(sort,'limitdate')}" aria-hidden="true"></span></button>
+				</th>
 			</tr>
 <c:forEach var="p" items="${pack}" varStatus="i">
 			<tr>

@@ -14,15 +14,16 @@ public class DeleteService {
 	 * @param id 削除するidを指定します。
 	 * @throws ServletException
 	 */
-	public void deleteDB(String id) throws ServletException {
+	public void deleteDB(String id, String personal_id) throws ServletException {
 		Connection con = null;
 		PreparedStatement ps = null;
-		String sql = "DELETE FROM mainlist WHERE id = ?";
+		String sql = "DELETE FROM mainlist WHERE id = ? AND personal_id = ?";
 		ResultSet rs = null;
 		try{
 			con = DBUtils.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, id);
+			ps.setString(2, personal_id);
 			ps.executeUpdate();
 		}catch(Exception e){
 			throw new ServletException(e);

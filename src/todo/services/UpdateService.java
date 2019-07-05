@@ -17,17 +17,18 @@ public class UpdateService {
 	 * @return UpdateForm型のデータ
 	 * @throws ServletException
 	 */
-	public UpdateForm getDB(String id) throws ServletException {
+	public UpdateForm getDB(String id,String personal_id) throws ServletException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		String sql = null;
 		ResultSet rs = null;
 		UpdateForm pack = null;
-		sql = "SELECT title,details,value,limitdate,did FROM mainlist WHERE id = ?";
+		sql = "SELECT title,details,value,limitdate,did FROM mainlist WHERE id = ? AND personal_id = ?";
 		try{
 			con = DBUtils.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, id);
+			ps.setString(2, personal_id);
 			rs = ps.executeQuery();
 			while(rs.next()){
 				String title = rs.getString("title");
@@ -53,7 +54,7 @@ public class UpdateService {
 	 * @param get UpdateForm型の更新したい情報データ
 	 * @throws ServletException
 	 */
-	public void updateDB(UpdateForm get) throws ServletException {
+	public int updateDB(UpdateForm get,String personal_id) throws ServletException {
 		String id = get.getId();
 		String title = get.getTitle();
 		String details = get.getDetails();
@@ -63,10 +64,11 @@ public class UpdateService {
 		Connection con = null;
 		PreparedStatement ps = null;
 		String sql = null;
+		int change = 0;
 		//DB更新
 		try {
 			con = DBUtils.getConnection();
-			sql = "UPDATE mainlist SET title = ?,details = ?,value = ?,limitdate = ?,did = ? WHERE id = ?";
+			sql = "UPDATE mainlist SET title = ?,details = ?,value = ?,limitdate = ?,did = ? WHERE id = ? AND personal_id = ?";
 			ps = con.prepareStatement(sql);
 			ps.setString(1, title);
 			ps.setString(2, details);
@@ -74,12 +76,14 @@ public class UpdateService {
 			ps.setString(4, limitdate);
 			ps.setString(5, did);
 			ps.setString(6, id);
-			ps.executeUpdate();
+			ps.setString(7, personal_id);
+			change = ps.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
 			//close処理
 			DBUtils.close(con, ps);
 		}
+		return change;
 	}
 }

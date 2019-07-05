@@ -28,7 +28,8 @@ public class DeleteServlet extends HttpServlet {
 		}
 		// SQLに出力
 		DeleteService ds = new DeleteService();
-		ds.deleteDB(id);
+		String personal_id = (String) session.getAttribute("personal_id");
+		ds.deleteDB(id,personal_id);
 		session.setAttribute("success", "No."+id+" の削除に成功しました");
 		resp.sendRedirect("index.html");
 	}

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import todo.services.IndexService;
+import todo.utils.ConstantUtils;
 
 @WebServlet("/index.html")
 public class IndexServlet extends HttpServlet {
@@ -20,21 +21,36 @@ public class IndexServlet extends HttpServlet {
 		IndexService is = new IndexService();
 		HttpSession session = req.getSession();
 		String did = (String) session.getAttribute("didValue");
+		String personal_id = (String) session.getAttribute("personal_id");
+		if(session.getAttribute("sort")==null) {
+			session.setAttribute("sort","id");
+		}
+		String sort = (String) session.getAttribute("sort");
 
 		String nowPage = req.getParameter("page");
-		if(nowPage==null) {nowPage = "1";}
-
-		double length = is.getDBLength(did);
-		req.setAttribute("page", (int)Math.ceil(length/10));
-
-		List<String> err = checkPage(nowPage, length);
-		session.setAttribute("err", err);
-		if(err.size()!=0) {
+		if(nowPage==null) {
 			nowPage = "1";
+			session.setAttribute("search","");
+		}
+		String search = (String)session.getAttribute("search");
+
+		// sqlのデータの長さの取得
+		double length = is.getDBLength(did,search,personal_id);
+
+		// 入力検査
+		if(session.getAttribute("err")==null) {
+			List<String> err = checkPage(nowPage, length);
+			session.setAttribute("err", err);
+			if(err.size()!=0) {
+				nowPage = "1";
+			}
 		}
 		req.setAttribute("nowPage",nowPage);
 
-		req.setAttribute("pack", is.getDB(did,nowPage));
+
+		req.setAttribute("page", (int)Math.ceil(length/ConstantUtils.DISPLAY_LINE));
+
+		req.setAttribute("pack", is.getDB(did,nowPage,search,personal_id,sort));
 
 		getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(req, resp);
 
@@ -51,19 +67,41 @@ public class IndexServlet extends HttpServlet {
 		IndexService is = new IndexService();
 		String update = req.getParameter("update");
 		String nowPage = req.getParameter("page");
-		if(nowPage==null) {nowPage = "1";}
+		String sort;
+		String search;
+		String personal_id = (String) session.getAttribute("personal_id");
+
+		if(req.getParameter("sort")!=null) {
+			sort = checkSort(req.getParameter("sort"), (String)session.getAttribute("sort"));
+			session.setAttribute("sort", sort);
+		}else {
+			sort = (String)session.getAttribute("sort");
+		}
+
+		if(req.getParameter("searchbutton")!=null) {
+			search = req.getParameter("search");
+			session.setAttribute("search", search);
+		}else {
+			search = (String)session.getAttribute("search");
+		}
+
+		if(nowPage==null) {
+			nowPage = "1";
+		}
+
 		String did = (String) session.getAttribute("didValue");
-		double length = is.getDBLength(did);
+		double length = is.getDBLength(did,search,personal_id);
 
 		// 完了が押され、エラーがない場合のみ更新する
 		if(update!=null) {
 			List<String> err = validate(checked, id, didVal);
 			session.setAttribute("err", err);
 			if(err.size()==0) {
-				session.setAttribute("success",is.updateDB(id, checked,didVal));
+				session.setAttribute("success",is.updateDB(id, checked,didVal,personal_id));
 			}
 		}
 
+		// 入力検査
 		List<String> err = checkPage(nowPage, length);
 		session.setAttribute("err", err);
 		if(err.size()!=0) {
@@ -71,9 +109,9 @@ public class IndexServlet extends HttpServlet {
 		}
 
 		req.setAttribute("nowPage",nowPage);
-		req.setAttribute("page", (int)Math.ceil(length/10));
+		req.setAttribute("page", (int)Math.ceil(length/ConstantUtils.DISPLAY_LINE));
 
-		req.setAttribute("pack", is.getDB(did,nowPage));
+		req.setAttribute("pack", is.getDB(did,nowPage,search,personal_id,sort));
 		getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(req, resp);
 
 		session.setAttribute("err","");
@@ -129,13 +167,23 @@ public class IndexServlet extends HttpServlet {
 		List<String> err = new ArrayList<>();
 		try {
 			int num = Integer.valueOf(nowPage);
-			if(!(1<=num&&num<=(int)Math.ceil(length/10))) {
+			if(!(1<=num&&num<=(int)Math.ceil(length/ConstantUtils.DISPLAY_LINE))) {
 				err.add("不正なページ番号です。");
 			}
 		} catch (Exception e) {
 			err.add("不正なページ番号です。");
 		}
 		return err;
+	}
+
+	public static String checkSort(String reqSort,String sesSrot) {
+		if(!(reqSort.equals("id")||reqSort.equals("title")||reqSort.equals("value")||reqSort.equals("limitdate"))) {
+			return "id";
+		}
+		if(reqSort.equals(sesSrot)) {
+			return reqSort + " DESC";
+		}
+		return reqSort;
 	}
 
 }

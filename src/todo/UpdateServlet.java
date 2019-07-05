@@ -23,7 +23,16 @@ public class UpdateServlet extends HttpServlet {
 		HttpSession session = req.getSession();
 		session.setAttribute("err","");
 		session.setAttribute("success","");
-		req.setAttribute("pack", us.getDB(req.getParameter("id")));
+		String personal_id = (String) session.getAttribute("personal_id");
+		UpdateForm uf =  us.getDB(req.getParameter("id"),personal_id);
+		if(uf==null) {
+			List<String> err = new ArrayList<>();
+			err.add("idが存在しません。");
+			session.setAttribute("err", err);
+			resp.sendRedirect("index.html");
+			return;
+		}
+		req.setAttribute("pack", uf);
 		getServletContext().getRequestDispatcher("/WEB-INF/update.jsp").forward(req, resp);
 	}
 	@Override
@@ -36,6 +45,7 @@ public class UpdateServlet extends HttpServlet {
 		String value = req.getParameter("value");
 		String limitdate = req.getParameter("limitdate");
 		String did = req.getParameter("did");
+		String personal_id = (String) session.getAttribute("personal_id");
 		// limitdateはSQLにてDATE型であり、空文字だとエラーが出るためNULLにする
 		if(limitdate.equals("")) {
 			limitdate = null;
@@ -55,8 +65,13 @@ public class UpdateServlet extends HttpServlet {
 		}
 		// SQLに出力
 		UpdateService us = new UpdateService();
-		us.updateDB(new UpdateForm(id,title, details, Integer.valueOf(req.getParameter("value")), limitdate,did));
-		session.setAttribute("success","No."+id+" の更新に成功しました");
+		int change = us.updateDB(new UpdateForm(id,title, details, Integer.valueOf(req.getParameter("value")), limitdate,did),personal_id);
+		if(change == 0) {
+			session.setAttribute("err","No."+id+" の更新に失敗しました");
+		}else {
+			session.setAttribute("success","No."+id+" の更新に成功しました");
+		}
+
 		resp.sendRedirect("index.html");
 	}
 	/**

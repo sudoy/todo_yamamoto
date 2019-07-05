@@ -16,7 +16,7 @@ public class EntryService {
 	 * @return 書き込みを行ったID番号
 	 * @throws ServletException
 	 */
-	public int setDB(EntryForm get) throws ServletException {
+	public int setDB(EntryForm get,String personal_id) throws ServletException {
 		String title = get.getTitle();
 		String details = get.getDetails();
 		String value = get.getValue();
@@ -30,12 +30,13 @@ public class EntryService {
 		try{
 			con = DBUtils.getConnection();
 			// select文
-			sql = "INSERT INTO mainlist (title,details,value,limitdate) VALUES (?,?,?,?)";
+			sql = "INSERT INTO mainlist (title,details,value,limitdate,personal_id) VALUES (?,?,?,?,?)";
 			ps = con.prepareStatement(sql);
 			ps.setString(1, title);
 			ps.setString(2, details);
 			ps.setString(3, value);
 			ps.setString(4, limitdate);
+			ps.setString(5, personal_id);
 			ps.executeUpdate();
 			// 追加したデータのidの取得
 			rs = con.prepareStatement("SELECT LAST_INSERT_ID()").executeQuery();

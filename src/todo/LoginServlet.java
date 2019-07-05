@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import todo.forms.LoginForm;
+import todo.forms.PersonalForm;
 import todo.services.LoginService;
 @WebServlet("/login.html")
 public class LoginServlet extends HttpServlet {
@@ -24,16 +25,18 @@ public class LoginServlet extends HttpServlet {
 		String email = req.getParameter("email");
 		String pass = req.getParameter("pass");
 		LoginService ls = new LoginService();
-		String name = ls.checkDB(email, pass);
+		PersonalForm personal = ls.checkDB(email, pass);
 
 		// 名前が出力されない場合エラー
-		if(name.equals("")) {
+		if(personal.getName().equals("")) {
 			session.setAttribute("err","メールアドレス、又はパスワードが間違っています。");
 			req.setAttribute("pack",new LoginForm(email));
 			getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(req, resp);
+			return;
 		}
 		// ログイン成功
-		session.setAttribute("name", name);
+		session.setAttribute("name",personal.getName());
+		session.setAttribute("personal_id", personal.getId());
 		resp.sendRedirect("index.html");
 	}
 }

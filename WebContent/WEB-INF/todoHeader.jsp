@@ -20,7 +20,7 @@
 			<div class="container">
 				<!-- Brand and toggle get grouped for better mobile display -->
 				<div class="navbar-header">
-					<a class="navbar-brand" href="#">Todoリスト</a>
+					<a class="navbar-brand" href="index.html">Todoリスト</a>
 				</div>
 <c:if test="${!empty(name)}">
 				<div class="navbar-form navbar-right">
@@ -32,6 +32,16 @@
 							<li><a href="logout.html">ログアウト</a></li>
 						</ul>
 					</div>
+				</div>
+				<div class="navbar-form navbar-right">
+					<form method="POST" action="index.html">
+						<div class="input-group">
+							<input type="text" class="form-control" name="search" value="${search}" placeholder="検索">
+							<span class="input-group-btn">
+							<button type="submit" class="btn btn-default" name="searchbutton" value="" type="button">検索</button>
+							</span>
+						</div>
+					</form>
 				</div>
 				<div class="navbar-form navbar-right">
 					<form method="POST" action="index.html">

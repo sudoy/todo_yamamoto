@@ -51,7 +51,8 @@ public class EntryServlet extends HttpServlet {
 		// SQLｎ出力
 		EntryForm get = new EntryForm(title, details, value, limitdate);
 		EntryService es = new EntryService();
-		int id = es.setDB(get);
+		String personal_id = (String) session.getAttribute("personal_id");
+		int id = es.setDB(get,personal_id);
 		session.setAttribute("success", "No."+id+" の登録に成功しました");
 		resp.sendRedirect("index.html");
 	}

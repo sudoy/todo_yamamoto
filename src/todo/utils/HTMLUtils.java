@@ -124,4 +124,13 @@ public class HTMLUtils {
 		return "index.html?page=" + link;
 	}
 
+	public static String sortIcon(String sortValue,String sortName) {
+		if(sortValue.equals(sortName)) {
+			return "glyphicon glyphicon-chevron-up";
+		}else if (sortValue.equals(sortName + " DESC")) {
+			return "glyphicon glyphicon-chevron-down";
+		}
+		return"";
+	}
+
 }
